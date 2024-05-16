@@ -1,0 +1,79 @@
+{{>header}}
+<style>
+  .container {
+    margin-top: 40px;
+  }
+  {{!-- .purchase-block{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(1,1,1,0.5);
+    
+  }
+  .purchase{
+    height: 200px;
+    width: 400px;
+    background-color: white;
+    opacity: 1;
+    margin: auto;
+  } --}}
+</style>
+{{!-- <div class="purchase-block">
+  <div class="purchase">
+    <img src="qr.png">
+  </div> --}}
+
+</div>
+<div class="container">
+  <table class="table">
+    <thead class="table-dark">
+      <th>Biển số xe</th>
+      <th>Gía đã đặt</th>
+      <th>Thời gian tham gia đấu giá</th>
+      <th>Tình trạng</th>
+    </thead>
+    <tbody>
+      {{#each data}}
+      <tr>
+        <td>{{this.liciense}}</td>
+        <td class="price">{{this.price}}</td>
+        <td>{{this.time_bid}}</td>
+        <td class="status">Đang diễn ra</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<script>
+  list_price = document.getElementsByClassName('price')
+  for (var i = 0; i < list_price.length; i++) {
+    list_price[i].innerHTML = list_price[i].innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
+  }
+
+  list_status = document.querySelectorAll('.status')
+
+  for (let i = 0; i < list_status.length; i++) {
+    liciense = list_status[i].parentElement.querySelector('td:nth-child(1)').innerHTML
+
+    let price2 = list_status[i].parentElement.querySelector('td:nth-child(2)').innerHTML
+    price2 = price2.replace(/VND|\s+|\./g, '')
+    console.log(price2)
+
+    fetch(`http://localhost:3000/bid-info/${liciense}`)
+      .then(data => data.json()
+      )
+      .then(data => {
+        if (price2 == data.price) {
+          list_status[i].parentElement.querySelector('td:nth-child(4)').innerHTML = "Thắng đấu giá <button>Thanh toán</button>"
+        }
+        else {
+          list_status[i].parentElement.querySelector('td:nth-child(4)').innerHTML = "Đã kết thúc"
+
+        }
+
+      })
+  }
+
+
+
+</script>

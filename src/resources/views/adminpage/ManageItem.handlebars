@@ -1,0 +1,77 @@
+{{>headeradmin}}
+
+<div class="container">
+  <div class="div" style="    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    color: rgb(16, 24, 40);
+    margin-bottom: 40px;  text-align: center;
+">
+    Danh sách biển số ô tô đang chờ đấu giá
+  </div>
+  <table class="table">
+    <thead class="table-light">
+      <th>username</th>
+      <th>Biển số</th>
+      <th>Loại biển</th>
+      <th>Tỉnh, thành phố</th>
+      <th>Giá khởi điểm</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      {{#each data}}
+      <tr>
+        <td>{{this.seller}}</td>
+        <td>{{this.liciense}}</td>
+        <td>{{this.loai_bien}}</td>
+        <td>{{this.province}}</td>
+        <td>{{this.pricestart}}</td>
+        <td><button class="accept" type="submit">Chấp nhận</button></td>
+        <td><button class="reject" type="submit">Xóa</button></td>
+      </tr>
+      {{/each}}
+    </tbody>
+    <script>
+      var accept_button = document.querySelectorAll(".accept");
+      var reject_button = document.querySelectorAll(".reject");
+
+      accept_button.forEach(btn => {
+        btn.onclick = async function (e) {
+          e.preventDefault()
+          const licienseValue = this.parentElement.parentElement.querySelector('td:nth-child(2)').textContent;
+          fetch("http://localhost:3000/accept-liciense", {
+            method: 'POST',
+            body: JSON.stringify({
+              liciense: licienseValue,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          })
+          
+          location.reload()
+
+        }
+      })
+      reject_button.forEach(btn => {
+        btn.onclick = async function (e) {
+          e.preventDefault()
+          const licienseValue = this.parentElement.parentElement.querySelector('td:nth-child(2)').textContent;
+          fetch("http://localhost:3000/reject-liciense", {
+            method: 'POST',
+            body: JSON.stringify({
+              liciense: licienseValue,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          })
+          location.reload()
+        }
+
+      })
+
+    </script>
+  </table>
+</div>

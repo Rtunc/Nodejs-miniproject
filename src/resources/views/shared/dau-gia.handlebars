@@ -1,0 +1,153 @@
+{{>header}}
+<style>
+    .container {
+        max-width: 900px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap: 20px;
+        column-gap: 40px;
+        
+    }
+
+    .register-btn-new span {
+        color: #067647;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        margin-right: 10px;
+    }
+
+    .register-btn-new {
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #75e0a7;
+        background: #fff;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-body {
+        padding: 24px;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .iten-content-title {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .item-content-container {
+        margin-bottom: 15px;
+    }
+
+    ..item-content-value {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #182230;
+        text-overflow: clip;
+        overflow: hidden;
+        white-space: nowrap;
+        
+    }
+
+    .card-detail {
+        border-radius: 16px;
+        border: 1px solid #eaecf0;
+    }
+
+    .bks-container {
+        border: 1px solid #eaecf0;
+        padding: 24px;
+        width: 80%;
+        margin: 24px auto 0;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 35px;
+        position: relative;
+    }
+    .wrapper{
+        width: 80%;
+        margin: 100px auto 0;
+    }
+    .item-content-container{
+        display: flex;
+    }
+    .img-container img{
+        height: 20px;
+    }
+    .img-container {
+        background-color: rgb(227, 244, 227);
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        border-radius: 20px;
+    }
+</style>
+
+<div class="wrapper">
+    <div class="div" style="    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    color: rgb(16, 24, 40);
+    margin-bottom: 40px;  text-align: center;
+" >
+        Danh sách biển số ô tô đang được đấu giá
+    </div>
+    <div class="container">
+        {{#each data}}
+    <div class="card-detail">
+        <div class="detail-head">
+            <div class="bks-container">
+                <div>
+                    {{this.liciense1}}
+                </div>
+                <div>
+                    {{this.liciense2}}
+                </div>
+                
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="item-content-container">
+                <div class="img-container">
+                    <svg style="width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#61c271" d="M528 160V416c0 8.8-7.2 16-16 16H320c0-44.2-35.8-80-80-80H176c-44.2 0-80 35.8-80 80H64c-8.8 0-16-7.2-16-16V160H528zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM272 256a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zm104-48c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24H376zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24H376z"/></svg>
+                </div>
+                <div>
+                    <div class="iten-content-title" style="">Loại biển</div>
+                <div class="iten-content-value"> {{this._doc.loai_bien}}</div>
+                </div>
+            </div>
+            <div class="item-content-container">
+                <div class="img-container">
+                    <svg style="width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#61c271" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+                </div>
+                <div>
+                    <div class="iten-content-title">Tỉnh thành phố</div>
+                <div class="iten-content-value"> {{this._doc.province}}</div>
+                </div>
+            </div>
+            <div class="item-content-container">
+                <div class="img-container">
+                    <svg style="width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#61c271" d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192h80v56H48V192zm0 104h80v64H48V296zm128 0h96v64H176V296zm144 0h80v64H320V296zm80-48H320V192h80v56zm0 160v40c0 8.8-7.2 16-16 16H320V408h80zm-128 0v56H176V408h96zm-144 0v56H64c-8.8 0-16-7.2-16-16V408h80zM272 248H176V192h96v56z"/></svg>
+                </div>
+                <div>
+                    <div class="iten-content-title">Thời gian kết thúc</div>
+                <div class="iten-content-value"> {{this._doc.date}}</div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center;"><a href="/dau-gia/{{this._doc.liciense}}"
+                    rel="noopener noreferrer" class="register-btn-new"><span>Đăng ký đấu giá</span></a></div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+</div>

@@ -1,0 +1,190 @@
+{{>header}}
+<style>
+    .wrap {
+        background-color: #f6f7fb;
+        min-height: 100%;
+        padding-top: 100px;
+
+    }
+
+    .container {
+        max-width: 80%;
+        margin: auto;
+        background-color: white;
+        height: 600px;
+        width: 1100px;
+        display: flex;
+
+    }
+
+    .content-item {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .row1 {
+        width: 600px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .value {
+        color: #713C39;
+    }
+
+    .red {
+        color: #FF6464;
+    }
+
+    .plate {
+        display: block;
+        background-color: #f6f7fb;
+        width: 335px;
+        height: 243px;
+        border-radius: 20px;
+        border: 4px solid black;
+    }
+
+    .plate>p {
+        font-size: 64;
+        text-align: center;
+        margin-top: 12px;
+    }
+
+    .content-item>a {
+        margin-bottom: 10px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .row2 {
+        width: 360px;
+        margin: auto 0;
+    }
+
+    .bar {
+        width: 100%;
+        height: 2px;
+        background-color: black;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="wrap">
+
+    <div class="container">
+        <div class="row1">
+            <div class="plate">
+                <p>{{liciense1}}
+                    <br>{{liciense2 }}
+                </p>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="content-item">
+                <a>Người bán:</a>
+                <a class="value">
+                    {{seller}}
+                </a>
+            </div>
+            <div class="content-item">
+                <a>Địa chỉ:</a>
+                <a class="value">
+                    {{province}}
+                </a>
+            </div>
+            <div class="bar">
+
+            </div>
+            <div class="content-item">
+                <a>Loại biển:</a>
+                <a class="value">
+                    {{loai_bien}}
+                </a>
+            </div>
+
+            <div class="content-item">
+                <a>Thời gian kết thúc đấu giá:</a>
+                <a class="value">
+                    {{date}}
+                </a>
+            </div>
+            <div class="content-item">
+                <a>Giá khởi điểm:</a>
+                <a class="red">
+                    {{pricestart}}
+                </a>
+            </div>
+            <div class="bar">
+
+            </div>
+            <div class="content-item">
+                <a>Giá hiện tại:</a>
+                <a class="red top_bid">
+                    {{price}}
+                </a>
+            </div>
+            <div class="content-item">
+                <a>Người trả giá cao nhất:</a>
+                <a class="value ">
+                    {{topbidder}}
+                </a>
+            </div>
+            {{!-- method="POST" action="/addsession" --}}
+            <form>
+
+                <div class="mb-3">
+                    <label for="price_bid" class="form-label">Hãy nhập mức giá:</label>
+                    <input type="text" class="form-control" name="price_bid" id="price_bid">
+                    <input type="hidden" name="liciense" value={{liciense}}>
+                </div>
+                <button type="submit" style="width: 100px" class="btn btn-primary">Đặt</button>
+            </form>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+</div>
+<script>
+    var submit_btn = document.querySelector(".btn-primary");
+    console.log(submit_btn)
+    submit_btn.onclick = function (e) {
+        e.preventDefault()
+        ur_price = document.getElementById('price_bid').value
+        pre_price = document.querySelector('.top_bid').innerHTML
+        liciense = document.querySelector('.plate').querySelector('p').innerHTML.replace(/<br>/g, '').replace(/\s/g, '')
+
+
+        if ((parseInt(ur_price) > parseInt(pre_price)) && ((parseInt(ur_price) - parseInt(pre_price)) >= 5000000)) {
+            fetch("http://localhost:3000/addsession", {
+                method: 'POST',
+                body: JSON.stringify({
+                    liciense: liciense,
+                    price_bid: ur_price
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(
+                alert("Đấu giá thành công")
+            )
+            .then(location.reload())
+                
+
+        }
+        else {
+            alert("Số tiền đặt phải lớn hơn giá cao nhất hiện tại và bước nhảy lớn hơn 5.000.000 đồng")
+        }
+    }
+
+
+
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+</script>

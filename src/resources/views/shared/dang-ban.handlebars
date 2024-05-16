@@ -1,0 +1,52 @@
+{{>header}}
+<style>
+      .container {
+        width: 50%;
+        margin: 0 auto;
+        padding: 96px;
+        
+
+    }
+    
+
+</style>
+{{!-- userid: { type: String, default: "" },
+    liciense: { type: String, default: "" },
+    pricestart: { type: String, default: "" },
+    provience: { type: String, default: "" },
+    loai_bien: { type: String, default: "" }, --}}
+<div class="container">
+    <form method="POST" action = "sell">
+  <div class="mb-3">
+    <label for="bien-so-xe" class="form-label">Biển số xe</label>
+    <input type="text" class="form-control" id="bien-so-xe" name = 'liciense' >
+  </div>
+  <div class="mb-3">
+    <label for="loai_bien" class="form-label">Loại biển</label>
+    <input type="text" class="form-control" id="loai_bien" name ='loai_bien'>
+  </div>
+  <div class="mb-3">
+    <label for="tinh-thanhpho" class="form-label">Tỉnh thành phố</label>
+    <input type="text" class="form-control" id="tinh-thanhpho" name = 'province' >
+  </div>
+  <div class="mb-3">
+    <label for="pricestart" class="form-label">Giá khởi điểm</label>
+    <input type="text" class="form-control" id="pricestart" name = 'pricestart' >
+  </div>
+   <div class="mb-3">
+    {{!-- <label for="pricestart" class="form-label">Giá khởi điểm</label>
+    <input type="text" class="form-control" id="pricestart" name = 'pricestart' > --}}
+    <label for="date" class="form-label">Thời điểm kết thúc đấu giá</label>
+       <input id="datepicker" width="276" name="date" />
+  </div>
+  
+
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+<script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap5'
+        });
+</script>
